@@ -1,0 +1,413 @@
+/* ── Neo Brutalism Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #fafafa;
+  --yellow: #FFE500;
+  --pink:   #FF3CAC;
+  --blue:   #3D5AFE;
+  --green:  #00E676;
+  --orange: #FF6D00;
+  --red:    #FF1744;
+  --border: 3px solid var(--black);
+  --shadow: 5px 5px 0px var(--black);
+  --shadow-lg: 8px 8px 0px var(--black);
+  --radius: 0px;
+  --font: 'Space Grotesk', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--yellow);
+  color: var(--black);
+  min-height: 100vh;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────── */
+.navbar {
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--yellow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar .logo svg { width: 22px; height: 22px; stroke: var(--yellow); }
+
+.navbar nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 1.5rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  border: 2px solid transparent;
+  transition: all 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar nav a svg { width: 15px; height: 15px; }
+
+.navbar nav a:hover,
+.navbar nav a.active {
+  background: var(--yellow);
+  color: var(--black);
+  border: 2px solid var(--yellow);
+}
+
+.navbar nav a:hover svg,
+.navbar nav a.active svg { stroke: var(--black); }
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translate(-2px, -2px);
+  transition: all 0.1s;
+}
+
+.card-pink   { background: var(--pink);   color: var(--white); }
+.card-blue   { background: var(--blue);   color: var(--white); }
+.card-green  { background: var(--green);  color: var(--black); }
+.card-orange { background: var(--orange); color: var(--white); }
+.card-yellow { background: var(--yellow); color: var(--black); }
+
+/* ── Grid ───────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Stat Box ───────────────────────────────────────────────── */
+.stat-box {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1.5rem;
+  background: var(--white);
+}
+
+.stat-box .stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-box .stat-label svg { width: 13px; height: 13px; }
+
+.stat-box .stat-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+.stat-box .stat-note {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+/* ── Story Card ─────────────────────────────────────────────── */
+.story-card {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.story-card .story-icon {
+  margin-bottom: 0.75rem;
+}
+
+.story-card .story-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 2.5px;
+}
+
+.story-card .story-headline {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.story-card .story-detail {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.story-card .story-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 0.75rem;
+}
+
+/* ── Bar Chart ──────────────────────────────────────────────── */
+.bar-chart { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.bar-row { display: flex; align-items: center; gap: 1rem; }
+
+.bar-label {
+  width: 90px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: rgba(0,0,0,0.1);
+  border: 2px solid var(--black);
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--black);
+  transition: width 0.6s cubic-bezier(.23,1,.32,1);
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.bar-fill span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.bar-amount {
+  width: 70px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  background: var(--white);
+  color: var(--black);
+  text-decoration: none;
+  transition: all 0.1s;
+}
+
+.btn svg { width: 16px; height: 16px; }
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.btn-black { background: var(--black); color: var(--white); }
+.btn-pink  { background: var(--pink);  color: var(--white); }
+.btn-blue  { background: var(--blue);  color: var(--white); }
+.btn-green { background: var(--green); color: var(--black); }
+
+/* ── Form ───────────────────────────────────────────────────── */
+.form-group { margin-bottom: 1.2rem; }
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  outline: none;
+}
+
+.form-group input:focus {
+  box-shadow: var(--shadow-lg);
+  transform: translate(-2px, -2px);
+}
+
+/* ── Auth Page ──────────────────────────────────────────────── */
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--yellow);
+}
+
+.auth-box {
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-box h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.auth-box p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-bottom: 2rem;
+}
+
+.auth-toggle {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.auth-toggle a {
+  color: var(--blue);
+  cursor: pointer;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.error-msg {
+  background: var(--red);
+  color: var(--white);
+  border: var(--border);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* ── Tag / Badge ────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid var(--black);
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+
+/* ── Insight Banner ─────────────────────────────────────────── */
+.insight-banner {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.2rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.insight-banner .insight-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.insight-banner .insight-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5px;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--yellow); }
+::-webkit-scrollbar-thumb { background: var(--black); }
