@@ -16,6 +16,11 @@ app.get('/api/config', (req, res) => {
   });
 });
 
+// Admin portal — separate HTML entry point
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

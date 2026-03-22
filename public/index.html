@@ -4,12 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>💸 Expense Story</title>
-  <link rel="stylesheet" href="/css/neo.css" />
+  <link rel="stylesheet" href="/css/neo.css?v=27" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
   <div id="navbar-root"></div>
   <div id="app"></div>
+  <button class="fab" id="fab-add-expense" aria-label="Add expense">
+    <i data-lucide="plus"></i>
+  </button>
 
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -17,14 +20,19 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <!-- App modules -->
-  <script src="/js/config.js"></script>
-  <script src="/js/data.js"></script>
-  <script src="/js/components/navbar.js"></script>
-  <script src="/js/components/storycard.js"></script>
-  <script src="/js/pages/auth.js"></script>
-  <script src="/js/pages/dashboard.js"></script>
-  <script src="/js/pages/stories.js"></script>
-  <script src="/js/pages/trends.js"></script>
-  <script src="/js/router.js"></script>
+  <script src="/js/config.js?v=27"></script>
+  <script src="/js/data.js?v=27"></script>
+  <script src="/js/engine/insights.js?v=27"></script>
+  <script src="/js/components/navbar.js?v=27"></script>
+  <script src="/js/components/storycard.js?v=27"></script>
+  <script src="/js/components/expensedrawer.js?v=27"></script>
+  <script src="/js/pages/auth.js?v=27"></script>
+  <script src="/js/pages/dashboard.js?v=27"></script>
+  <script src="/js/pages/stories.js?v=27"></script>
+  <script src="/js/pages/trends.js?v=27"></script>
+  <script src="/js/components/communitymodal.js?v=27"></script>
+  <script src="/js/pages/community.js?v=27"></script>
+  <script src="/js/pages/profile.js?v=27"></script>
+  <script src="/js/router.js?v=27"></script>
 </body>
 </html>

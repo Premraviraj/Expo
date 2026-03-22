@@ -1,55 +1,73 @@
 // ── Stories Page ─────────────────────────────────────────────
 window.StoriesPage = {
-  render() {
+  async render() {
     Navbar.render();
     const app = document.getElementById('app');
-    const stories = DummyData.stories();
-    const cards = stories.map(s => StoryCard.render(s)).join('');
 
-    const [top] = Object.entries(DummyData.byCategory()).sort((a, b) => b[1] - a[1]);
-    const total = DummyData.totalSpent();
+    app.innerHTML = `<div class="page">${[1,2,3].map(() =>
+      `<div class="skeleton" style="height:160px;margin-bottom:1rem"></div>`).join('')}</div>`;
+
+    let expenses = [], profile = null;
+    try {
+      [expenses, profile] = await Promise.all([DataAPI.getExpenses(), DataAPI.getUserProfile()]);
+    } catch(e) {
+      app.innerHTML = `<div class="page"><div class="empty-state">
+        <i data-lucide="wifi-off"></i><p>${e.message}</p></div></div>`;
+      renderIcons(); return;
+    }
+
+    if (!expenses.length) {
+      app.innerHTML = `
+        <div class="page page-enter">
+          <div class="page-title">Your Spending Stories</div>
+          <div class="page-subtitle">Nothing to tell yet.</div>
+          <div class="empty-state" style="margin-top:4rem">
+            <i data-lucide="book-open"></i>
+            <p>Add some expenses and your story will appear here.</p>
+            <button class="btn btn-dark" onclick="ExpenseDrawer.open()">
+              <i data-lucide="plus"></i> Add First Expense
+            </button>
+          </div>
+        </div>`;
+      renderIcons(); return;
+    }
+
+    const monthlyIncome = parseFloat(profile?.monthly_budget) || 0;
+    const stories       = InsightsEngine.stories(expenses, monthlyIncome);
+    const catStats      = InsightsEngine.categoryStats(expenses);
+    const total         = InsightsEngine.totalSpent(expenses);
+    const top           = catStats[0];
+
+    const cards = stories.map((s, i) =>
+      `<div style="animation-delay:${i * 80}ms" class="story-card-wrap">${StoryCard.render(s)}</div>`
+    ).join('');
 
     app.innerHTML = `
-      <div class="page">
+      <div class="page page-enter">
         <div class="page-title">Your Spending Stories</div>
-        <div class="page-subtitle">The unfiltered truth about March 2026.</div>
+        <div class="page-subtitle">The unfiltered truth.</div>
 
-        <div class="insight-banner" style="background:#FF1744;color:#fff;margin-bottom:2rem;font-size:1.1rem">
+        <div class="insight-banner" style="background:#e8d4b8;margin-bottom:2rem">
           <span class="insight-icon"><i data-lucide="skull"></i></span>
-          <span>You spent <strong>$${top[1]}</strong> on ${top[0]} — that's
-            ${Math.round((top[1]/total)*100)}% of everything. We're not judging. (We are.)</span>
+          <span>You spent <strong>&#8377;${top.total.toFixed(0)}</strong> on ${top.category} —
+            ${top.pct}% of everything. We're not judging. (We are.)</span>
         </div>
 
-        <div class="grid-3" style="margin-bottom:2rem">
-          ${cards}
-        </div>
+        <div class="grid-3" style="margin-bottom:2rem">${cards}</div>
 
         <div class="card">
-          <div style="font-size:1rem;font-weight:800;text-transform:uppercase;
-                      letter-spacing:0.5px;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px">
-            <i data-lucide="calendar-days"></i> Full Timeline
-          </div>
-          ${DummyData.expenses.map(e => `
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;
-                        padding:14px 0;border-bottom:2px solid #0a0a0a15;">
-              <div style="display:flex;gap:1rem;align-items:flex-start">
-                <div style="background:#0a0a0a;color:#FFE500;padding:4px 10px;
-                            font-size:0.72rem;font-weight:800;white-space:nowrap">
-                  ${e.date}
-                </div>
-                <div>
-                  <div style="font-weight:700">${e.note}</div>
-                  <span class="tag" style="margin-top:4px">${e.category}</span>
-                </div>
+          <div class="card-heading"><i data-lucide="calendar-days"></i> Full Timeline</div>
+          ${expenses.map((e, i) => `
+            <div class="tx-row timeline-row" style="animation-delay:${i * 40}ms">
+              <div class="timeline-date">${e.date}</div>
+              <div class="tx-info">
+                <div class="tx-note">${e.note}</div>
+                <span class="tag">${e.category}</span>
               </div>
-              <div style="font-size:1.1rem;font-weight:800;white-space:nowrap;margin-left:1rem">
-                $${e.amount}
-              </div>
-            </div>
-          `).join('')}
+              <div class="tx-amount">&#8377;${Number(e.amount).toFixed(2)}</div>
+            </div>`).join('')}
         </div>
-      </div>
-    `;
+      </div>`;
 
     renderIcons();
   }
