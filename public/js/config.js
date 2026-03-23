@@ -105,7 +105,10 @@ window.AppConfig = {
   },
 
   isAdmin(email) {
-    return ADMIN_EMAILS.includes(email?.toLowerCase());
+    // Check hardcoded list OR user_metadata flag set via admin panel
+    if (ADMIN_EMAILS.includes(email?.toLowerCase())) return true;
+    const meta = this.getSessionSync()?.user?.user_metadata;
+    return !!meta?.is_admin;
   }
 };
 
