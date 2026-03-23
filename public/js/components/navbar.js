@@ -4,39 +4,9 @@ window.Navbar = {
     const nav = document.getElementById('navbar-root');
     if (!nav) return;
 
-    const authed = AppConfig.isConnected()
-      ? !!AppConfig.getSessionSync()?.user
-      : window.demoLoggedIn;
-
-    // Detect if we're on the admin route
-    const isAdminPage = window.location.hash === '#/admin';
-
-    if (isAdminPage) {
-      nav.innerHTML = `
-        <header class="navbar">
-          <div class="logo">
-            <i data-lucide="shield-check"></i>
-            Admin Portal
-          </div>
-          <nav>
-            <span style="font-size:0.75rem;font-weight:600;opacity:0.4;padding:6px 12px;text-transform:uppercase;letter-spacing:1px">
-              Analytics
-            </span>
-            <a href="#" id="logout-btn">
-              <i data-lucide="log-out"></i> Logout
-            </a>
-          </nav>
-        </header>`;
-
-      document.getElementById('logout-btn').addEventListener('click', async (e) => {
-        e.preventDefault();
-        if (AppConfig.isConnected()) await AppConfig.supabase.auth.signOut();
-        window.location.reload();
-      });
-
-      renderIcons();
-      return;
-    }
+    const session = AppConfig.getSessionSync();
+    const authed  = AppConfig.isConnected() ? !!session?.user : window.demoLoggedIn;
+    const isAdmin = authed && AppConfig.isAdmin(session?.user?.email);
 
     nav.innerHTML = `
       <header class="navbar">
@@ -60,22 +30,21 @@ window.Navbar = {
           <a href="#/profile" data-route="/profile">
             <i data-lucide="user-circle"></i> Profile
           </a>
+          ${isAdmin ? `<a href="#/admin" data-route="/admin">
+            <i data-lucide="shield-check"></i> Admin
+          </a>` : ''}
           <button class="btn btn-gold navbar-add-btn" id="navbar-add-expense">
             <i data-lucide="plus"></i> Add Expense
           </button>
           ${authed
-            ? `<a href="#" id="logout-btn" data-route="/logout">
-                <i data-lucide="log-out"></i> Logout
-               </a>`
-            : `<a href="#/auth" data-route="/auth">
-                <i data-lucide="log-in"></i> Login
-               </a>`
+            ? `<a href="#" id="logout-btn"><i data-lucide="log-out"></i> Logout</a>`
+            : `<a href="#/auth" data-route="/auth"><i data-lucide="log-in"></i> Login</a>`
           }
         </nav>
       </header>`;
 
     if (authed) {
-      document.getElementById('logout-btn').addEventListener('click', (e) => {
+      document.getElementById('logout-btn')?.addEventListener('click', (e) => {
         e.preventDefault();
         this.logout();
       });

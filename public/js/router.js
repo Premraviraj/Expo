@@ -44,7 +44,8 @@ async function navigate() {
 
   if (route === '/auth' && authed) {
     const email = AppConfig.getSessionSync()?.user?.email;
-    window.location.hash = AppConfig.isAdmin(email) ? '#/admin' : '#/dashboard';
+    // Admin goes to dashboard like everyone else — they can navigate to /admin via navbar
+    window.location.hash = '#/dashboard';
     return;
   }
 
