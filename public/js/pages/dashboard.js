@@ -181,7 +181,13 @@ window.DashboardPage = {
 
     renderIcons();
 
-    // Payment filter for breakdown + recent
+    // Show onboarding for first-time users (non-admin)
+    if (user && !AppConfig.isAdmin(user.email)) {
+      const signupFlag = localStorage.getItem('es_show_onboarding');
+      const isNewUser  = signupFlag === user.id;
+      if (isNewUser) localStorage.removeItem('es_show_onboarding');
+      Onboarding.show(user.id, isNewUser);
+    }
     document.querySelectorAll('.pay-filter').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.pay-filter').forEach(p => p.classList.remove('active'));

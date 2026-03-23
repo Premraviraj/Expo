@@ -69,8 +69,11 @@ window.AuthPage = {
         <!-- Left panel -->
         <div class="auth-left">
           <div class="brand">
-            <i data-lucide="wallet"></i>
-            ExpenseStory
+            <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="28" height="28" fill="#c9a96e"/>
+              <path d="M17 4H10L8 14h5l-2 10 9-12h-6l3-8z" fill="#1a1a2e"/>
+            </svg>
+            Splurge
           </div>
           <h2>Where did your money actually go?</h2>
           <p>Stop guessing. Start seeing your spending as a story — with context, patterns, and the truth.</p>
@@ -315,6 +318,8 @@ window.AuthPage = {
             phone:          phone || null,
             monthly_budget: budget ? parseFloat(budget) : null,
           }).select();
+          // Flag for onboarding — dashboard will pick this up
+          localStorage.setItem('es_show_onboarding', data.user.id);
         }
 
         window.location.hash = '#/dashboard';

@@ -11,12 +11,15 @@ window.Navbar = {
     nav.innerHTML = `
       <header class="navbar">
         <div class="logo">
-          <i data-lucide="wallet"></i>
-          ExpenseStory
+          <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" fill="#c9a96e"/>
+            <path d="M17 4H10L8 14h5l-2 10 9-12h-6l3-8z" fill="#1a1a2e"/>
+          </svg>
+          Splurge
         </div>
         <nav>
           <a href="#/dashboard" data-route="/dashboard">
-            <i data-lucide="layout-dashboard"></i> Dashboard
+            <i data-lucide="layout-dashboard"></i> Home
           </a>
           <a href="#/stories" data-route="/stories">
             <i data-lucide="book-open"></i> Stories
