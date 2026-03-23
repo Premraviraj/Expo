@@ -59,6 +59,7 @@ window.AuthPage = {
 
   render() {
     Navbar.hide();
+    document.body.classList.add('page-auth');
     const app = document.getElementById('app');
     const isLogin = this.mode === 'login';
 

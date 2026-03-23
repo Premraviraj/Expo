@@ -28,6 +28,13 @@ async function navigate() {
   const route = communityMatch ? '/community'
     : (routes[hash] ? hash : '/auth');
 
+  // Remove auth body class when leaving auth page
+  if (route !== '/auth') document.body.classList.remove('page-auth');
+  if (route !== '/admin') document.body.classList.remove('admin-body');
+  // Hide FAB on auth and admin pages
+  const fab = document.getElementById('fab-add-expense');
+  if (fab) fab.style.display = (route === '/auth' || route === '/admin') ? 'none' : '';
+
   const authed = await isAuthenticated();
 
   if (protected_routes.includes(route) && !authed) {

@@ -8,8 +8,8 @@ window.Navbar = {
       ? !!AppConfig.getSessionSync()?.user
       : window.demoLoggedIn;
 
-    // Detect if we're on the admin page
-    const isAdminPage = window.location.pathname === '/admin';
+    // Detect if we're on the admin route
+    const isAdminPage = window.location.hash === '#/admin';
 
     if (isAdminPage) {
       nav.innerHTML = `

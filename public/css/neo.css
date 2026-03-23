@@ -761,9 +761,83 @@ body {
 .fab svg { width: 22px; height: 22px; }
 .fab:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lg); }
 
+/* ── Mobile — full responsive ───────────────────────────────── */
 @media (max-width: 768px) {
   .fab { display: flex; }
   .navbar-add-btn { display: none; }
+
+  /* Hide FAB on auth page */
+  body.page-auth .fab { display: none !important; }
+
+  /* Navbar — horizontal scroll on mobile */
+  .navbar {
+    padding: 0 1rem;
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .navbar .logo {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+
+  .navbar nav {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    border-top: 1px solid rgba(248,247,244,0.1);
+    padding: 6px 0;
+    gap: 2px;
+  }
+
+  .navbar nav::-webkit-scrollbar { display: none; }
+
+  .navbar nav a {
+    margin-left: 0;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Page padding */
+  .page { padding: 1.2rem 1rem; }
+  .page-title { font-size: 1.5rem; }
+
+  /* Grids */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+
+  /* Stat boxes */
+  .stat-box .stat-value { font-size: 1.5rem; }
+
+  /* Income panel */
+  .income-panel-top { flex-direction: column; gap: 0.75rem; }
+  .income-panel-left, .income-panel-right { flex-direction: row; align-items: center; justify-content: space-between; }
+  .income-value { font-size: 1.1rem; }
+  .survive-badge { width: 100%; }
+
+  /* Bar chart */
+  .bar-label { width: 70px; font-size: 0.68rem; }
+  .bar-amount { width: 50px; font-size: 0.72rem; }
+
+  /* Drawer full width on mobile */
+  .drawer { width: 100vw; border-left: none; border-top: var(--border); box-shadow: 0 -4px 0 var(--ink); top: auto; bottom: 0; height: 90vh; border-radius: 0; }
+
+  /* Community modal */
+  .community-modal { width: calc(100vw - 1rem); max-height: 85vh; }
+
+  /* Auth */
+  .auth-right { padding: 1.5rem 1rem; }
+  .auth-box { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .page-title { font-size: 1.3rem; }
 }
 
 /* ── Micro Interactions ─────────────────────────────────────── */
@@ -1817,4 +1891,37 @@ body.admin-body .insight-banner {
 
 @media (max-width: 600px) {
   .community-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Admin compact button ───────────────────────────────────── */
+.btn-xs {
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  gap: 5px;
+}
+.btn-xs svg { width: 12px; height: 12px; }
+
+/* ── Hide FAB on admin page ─────────────────────────────────── */
+body.admin-body .fab { display: none !important; }
+
+/* ── Admin table mobile ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .admin-table thead { display: none; }
+  .admin-table, .admin-table tbody, .admin-table tr, .admin-table td { display: block; width: 100%; }
+  .admin-table tr {
+    border-bottom: var(--border);
+    padding: 0.75rem 0;
+    margin-bottom: 0.5rem;
+  }
+  .admin-table td {
+    padding: 3px 1rem;
+    border: none;
+    font-size: 0.82rem;
+  }
+  .admin-table td[style*="display:flex"] {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 1rem;
+  }
 }
